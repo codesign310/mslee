@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>테스트 중입니다.</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white">
+  <!-- 네비게이션 영역 -->
+  <div class="px-10 py-4 flex items-center">
+    <span class="text-xl font-bold mr-4">mslee</span>
+    <span class="text-sm px-5">키워드분석</span>
+  </div>
+
+  <!-- 구분 라인 -->
+  <hr class="border-b-2 border-gray-600">
+
+  <!-- 컨텐츠 영역 -->
+  <div class="px-4 py-10 text-center text-xs">
+    <h1 class="text-4xl font-bold mb-6">분석을 위한 키워드를 입력해주세요.</h1>
+    <form action="/" method="post" class="flex justify-center items-center">
+      <input type="text" name="naver_keyword" placeholder="이서진" class="mr-2 p-2 text-black w-1/4 rounded-lg">
+      <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        Search
+      </button>
+    </form>
+
+    <!-- Results -->
+    {% if keyword_results %}
+      <div class="mt-8 py-10 mx-auto max-w-4xl">
+        <table class="w-full border-collapse border-b border-gray-400 bg-gray-800">
+          <thead>
+            <tr>
+              <th class="border-b border-gray-400 px-4 py-2">키워드</th>
+              <th class="border-b border-gray-400 px-4 py-2">월간 PC 조회수</th>
+              <th class="border-b border-gray-400 px-4 py-2">월간 모바일 조회수</th>
+              <th class="border-b border-gray-400 px-4 py-2">평균 PC 클릭 수</th>
+              <th class="border-b border-gray-400 px-4 py-2">평균 모바일 클릭 수</th>
+              <th class="border-b border-gray-400 px-4 py-2">평균 PC 클릭률</th>
+              <th class="border-b border-gray-400 px-4 py-2">평균 모바일 클릭률</th>
+              <th class="border-b border-gray-400 px-4 py-2">월 평균 노출광고 수</th>
+              <th class="border-b border-gray-400 px-4 py-2">경쟁 지수</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for keyword in keyword_results %}
+              <tr>
+                <td class="border-b border-gray-400 px-4 py-2">{{ keyword.relKeyword }}</td>
+                <td class="border-b border-gray-400 px-4 py-2">{{ '{:,.0f}'.format(keyword.monthlyPcQcCnt|int) }}</td>
+                <td class="border-b border-gray-400 px-4 py-2">{{ '{:,.0f}'.format(keyword.monthlyMobileQcCnt|int) }}</td>
+                <td class="border-b border-gray-400 px-4 py-2">{{ keyword.monthlyAvePcClkCnt }}</td>
+                <td class="border-b border-gray-400 px-4 py-2">{{ keyword.monthlyAveMobileClkCnt }}</td>
+                <td class="border-b border-gray-400 px-4 py-2">{{ keyword.monthlyAvePcCtr }}</td>
+                <td class="border-b border-gray-400 px-4 py-2">{{ keyword.monthlyAveMobileCtr }}</td>
+                <td class="border-b border-gray-400 px-4 py-2">{{ keyword.plAvgDepth }}</td>
+                <td class="border-b border-gray-400 px-4 py-2">{{ keyword.compIdx }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
+
+    {% if total_blog_results %}
+      <div class="mt-8 mx-auto max-w-4xl">
+        <h2 class="text-2xl font-bold">블로그 결과:</h2>
+        <p class="mt-2">Total Results: {{ '{:,.0f}'.format(total_blog_results|int) }}</p>
+        <table class="mt-4 w-full border-collapse border-b border-gray-400 bg-gray-800">
+          <thead>
+            <tr>
+              <th class="border-b border-gray-400 px-4 py-2">Title</th>
+              <th class="border-b border-gray-400 px-4 py-2">Blogger</th>
+              <th class="border-b border-gray-400 px-4 py-2">Post Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for blog in blog_results %}
+              <tr>
+                <td class="border-b border-gray-400 px-4 py-2"><a href="{{ blog.link }}" target="_blank">{{ blog.title|striptags }}</a></td>
+                <td class="border-b border-gray-400 px-4 py-2"><a href="{{ blog.bloggerlink }}" target="_blank">{{ blog.bloggername }}</a></td>
+                <td class="border-b border-gray-400 px-4 py-2">{{ blog.postdate }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
+
+    {% if total_news_results %}
+      <div class="mt-8 mx-auto max-w-4xl">
+        <h2 class="text-2xl font-bold">뉴스 결과:</h2>
+        <p class="mt-2">Total Results: {{ '{:,.0f}'.format(total_news_results|int) }}</p>
+        <table class="mt-4 w-full border-collapse border-b border-gray-400 bg-gray-800">
+          <thead>
+            <tr>
+              <th class="border-b border-gray-400 px-4 py-2">Title</th>
+              <th class="border-b border-gray-400 px-4 py-2">Publication Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for news in news_results %}
+              <tr>
+                <td class="border-b border-gray-400 px-4 py-2"><a href="{{ news.link }}" target="_blank">{{ news.title|striptags }}</a></td>
+                <td class="border-b border-gray-400 px-4 py-2">{{ news.pubDate }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
