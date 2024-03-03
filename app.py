@@ -15,8 +15,8 @@ def naver_keyword():
 
     return render_template('index.html', keyword_results=keyword_results, total_blog_results=total_blog_results, blog_results=blog_results, total_news_results=total_news_results, news_results=news_results)
 
-if __name__ == '__main__':
-    app.run(debug=True)
-
 # if __name__ == '__main__':
-#    app.run(debug=False, port=5000)
+#    app.run(debug=True)
+
+if __name__ == '__main__':
+   app.run(debug=False, port=5000)
