@@ -22,35 +22,23 @@ def naver_keyword():
 @app.route('/contents', methods=['GET', 'POST'])
 def contents():
     if request.method == 'POST':
-        post_url = request.form.get('post_url')  # 사용자가 입력한 포스트 URL 받아오기
-
-        # URL 변환을 수행
-        if 'm.blog.naver.com' in post_url:
-            # 이미 모바일 버전 URL인 경우
-            converted_post_url = post_url
-        elif 'blog.naver.com' in post_url:
-            # 데스크톱 버전 URL인 경우 모바일 버전으로 변환
-            converted_post_url = post_url.replace('blog.naver.com', 'm.blog.naver.com')
-        else:
-            # 다른 사이트의 URL이거나 올바르지 않은 URL인 경우
-            return render_template('error.html', message='URL을 다시 확인해주세요.')
-
-        post_data = get_crawled_post_data(converted_post_url)  # post_detail.py의 함수 호출하여 데이터 가져오기
-
-        if post_data:
-            # 가져온 데이터가 있는 경우
-            return render_template('contents.html', post_data=post_data)
-        else:
-            # 가져온 데이터가 없는 경우
-            return render_template('error.html', message='결과를 찾을 수 없습니다.')
+        post_url = request.form['post_url']  # 사용자가 입력한 포스트 URL 받아오기
+        post_data = get_crawled_post_data(post_url)  # post_detail.py의 함수 호출하여 데이터 가져오기
+        
+        #텍스트 길이 검수
+        post_textlength = post_data["post_textlength"]
+        text_length_result = '🔵 적절한 글자수입니다.' if post_textlength >= 1000 else '🔴 1,000자 이상 작성을 추천해요.'
+        
+        
+        return render_template('contents.html', post_data=post_data, text_length_result=text_length_result) 
     else:
         return render_template('contents.html', post_data=None)
 
 
 
-#if __name__ == '__main__':
-#    app.run(debug=True)
-
-
 if __name__ == '__main__':
-   app.run(debug=False, port=5000)
+    app.run(debug=True)
+
+
+# if __name__ == '__main__':
+#   app.run(debug=False, port=5000)
