@@ -33,58 +33,59 @@
 
     <!-- 결과 테이블 -->
     {% if post_data %}
-      <div class="mt-10">
-        <table class="table-auto border-collapse border border-green-800 mx-auto max-w-4xl">
+      <div class="mt-8 py-10 mx-auto max-w-2xl">
+        <table class="mt-4 w-full border-collapse border-b border-gray-200 bg-white rounded-lg">
           <thead>
             <tr>
-              <th class="border border-green-600 px-4 py-2">속성</th>
-              <th class="border border-green-600 px-4 py-2">값</th>
+              <th class="border-b border-gray-200 px-4 py-3 left-align">속성</th>
+              <th class="border-b border-gray-200 px-4 py-3 left-align">값</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td class="border border-green-600 px-4 py-2">포스트 제목</td>
-              <td class="border border-green-600 px-4 py-2">{{ post_data.post_title }}</td>
+              <td class="border-b border-gray-200 px-4 py-3 left-align">포스트 제목</td>
+              <td class="border-b border-gray-200 px-4 py-3 left-align">{{ post_data.post_title }}</td>
             </tr>
             <tr>
-              <td class="border border-green-600 px-4 py-2">포스트 카테고리</td>
-              <td class="border border-green-600 px-4 py-2">{{ post_data.post_category }}</td>
+              <td class="border-b border-gray-200 px-4 py-3 left-align">포스트 카테고리</td>
+              <td class="border-b border-gray-200 px-4 py-3 left-align">{{ post_data.post_category }}</td>
             </tr>
             <tr>
-              <td class="border border-green-600 px-4 py-2">포스트 닉네임</td>
-              <td class="border border-green-600 px-4 py-2">{{ post_data.post_nick }}</td>
+              <td class="border-b border-gray-200 px-4 py-3 left-align">포스트 닉네임</td>
+              <td class="border-b border-gray-200 px-4 py-3 left-align">{{ post_data.post_nick }}</td>
             </tr>
             <tr>
-              <td class="border border-green-600 px-4 py-2">포스트 작성일</td>
-              <td class="border border-green-600 px-4 py-2">{{ post_data.post_date }}</td>
+              <td class="border-b border-gray-200 px-4 py-3 left-align">포스트 작성일</td>
+              <td class="border-b border-gray-200 px-4 py-3 left-align">{{ post_data.post_date }}</td>
             </tr>
             <tr>
-              <td class="border border-green-600 px-4 py-2">포스트 좋아요 수</td>
-              <td class="border border-green-600 px-4 py-2">{{ post_data.post_like }}</td>
+              <td class="border-b border-gray-200 px-4 py-3 left-align">포스트 좋아요 수</td>
+              <td class="border-b border-gray-200 px-4 py-3 left-align">{{ post_data.post_like }}</td>
             </tr>
             <tr>
-              <td class="border border-green-600 px-4 py-2">포스트 댓글 수</td>
-              <td class="border border-green-600 px-4 py-2">{{ post_data.post_comment }}</td>
+              <td class="border-b border-gray-200 px-4 py-3 left-align">포스트 댓글 수</td>
+              <td class="border-b border-gray-200 px-4 py-3 left-align">{{ post_data.post_comment }}</td>
             </tr>
             <tr>
-              <td class="border border-green-600 px-4 py-2">포스트 텍스트 길이</td>
-              <td class="border border-green-600 px-4 py-2">{{ post_data.post_textlength }}</td>
+              <td class="border-b border-gray-200 px-4 py-3 left-align">포스트 텍스트 길이</td>
+              <td class="border-b border-gray-200 px-4 py-3 left-align">{{ post_data.post_textlength }}자
+                  <div class="bg-gray-200 inline-block px-2 py-1 rounded-lg text-xs"> {{ text_length_result }}</div></td>
             </tr>
             <tr>
-              <td class="border border-green-600 px-4 py-2">포스트 이미지 수</td>
-              <td class="border border-green-600 px-4 py-2">{{ post_data.post_imgcount }}</td>
+              <td class="border-b border-gray-200 px-4 py-3 left-align">포스트 이미지 수</td>
+              <td class="border-b border-gray-200 px-4 py-3 left-align">{{ post_data.post_imgcount }}</td>
             </tr>
             <tr>
-              <td class="border border-green-600 px-4 py-2">포스트 링크 수</td>
-              <td class="border border-green-600 px-4 py-2">{{ post_data.post_linkcount }}</td>
+              <td class="border-b border-gray-200 px-4 py-3 left-align">포스트 링크 수</td>
+              <td class="border-b border-gray-200 px-4 py-3 left-align">{{ post_data.post_linkcount }}</td>
             </tr>
             <tr>
-              <td class="border border-green-600 px-4 py-2">포스트 태그</td>
-              <td class="border border-green-600 px-4 py-2">{{ post_data.post_tag }}</td>
+              <td class="border-b border-gray-200 px-4 py-3 left-align">포스트 태그</td>
+              <td class="border-b border-gray-200 px-4 py-3 left-align">{{ post_data.post_tag }}</td>
             </tr>
             <tr>
-              <td class="border border-green-600 px-4 py-2">포스트 동영상 수</td>
-              <td class="border border-green-600 px-4 py-2">{{ post_data.post_videocount }}</td>
+              <td class="border-b border-gray-200 px-4 py-3 left-align">포스트 동영상 수</td>
+              <td class="border-b border-gray-200 px-4 py-3 left-align">{{ post_data.post_videocount }}</td>
             </tr>
           </tbody>
         </table>
