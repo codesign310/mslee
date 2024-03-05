@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request
 from naver_keyword import get_results as get_keyword_results, search_blog, search_news
 from post_detail import get_crawled_post_data  # post_detail.py에서 함수 가져오기
+from blog import get_blog_info, get_recent_posts, check_post_exposure
+
 
 
 app = Flask(__name__)
@@ -33,6 +35,29 @@ def contents():
         return render_template('contents.html', post_data=post_data, text_length_result=text_length_result) 
     else:
         return render_template('contents.html', post_data=None)
+
+
+
+
+
+@app.route('/blog', methods=['GET', 'POST'])
+def blog_view():
+    if request.method == 'POST':
+        # 폼 데이터에서 'blog_id'를 가져옵니다.
+        blog_id = request.form.get('blog_id')
+        
+        # blog.py의 함수를 호출하여 결과를 가져옵니다.
+        blog_info = get_blog_info(blog_id)
+        recent_posts = get_recent_posts(blog_id)
+        posts_with_exposure = check_post_exposure(recent_posts)
+        
+        # 결과 데이터와 함께 blog.html을 렌더링합니다.
+        return render_template('blog.html', blog_info=blog_info, recent_posts=recent_posts, posts_with_exposure=posts_with_exposure)
+    else:
+        # GET 요청의 경우, 단순히 폼만 포함된 blog.html을 렌더링합니다.
+        return render_template('blog.html')
+
+
 
 
 
